@@ -1,0 +1,25 @@
+{
+    "compute": [
+        {
+            "id": 1,
+            "title": "custom text 1",
+            "inputs": [
+                "Lorem Ipsum"
+            ]
+        },
+        {
+            "id": 2,
+            "title": "custom text 2",
+            "inputs": [
+                "Lorem Ipsum 2"
+            ]
+        }
+    ],
+    "other": [
+        {
+            "id": 1,
+            "body": "some text",
+            "source": "xyz"
+        }
+    ]
+}
