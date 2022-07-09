@@ -20,7 +20,9 @@ d = {
 config = ExampleConfig.get_config()
 ocean = Ocean(config)
 
-print("config", ocean.config.address_file, ocean.config.network_name,  ocean.config.block_confirmations.value, ocean.config.transaction_timeout.value)
-
+print("*" *100)
+print("ocean.config.address_file", ocean.config.address_file)
+print("ocean.config.network_name", ocean.config.network_name)
+print("*" *100)
 user_private_key = os.getenv('PRIVATE_KEY')
 web3_wallet = Wallet(ocean.web3, user_private_key, ocean.config.block_confirmations, ocean.config.transaction_timeout)
