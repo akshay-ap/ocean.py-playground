@@ -9,11 +9,10 @@ query = """
     name
     symbol
     owner
-    tokenUri
     address
     assetState
     tx
-		block
+	block
     transferable
  }
 }"""
