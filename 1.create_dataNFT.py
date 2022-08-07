@@ -11,4 +11,5 @@ data_nft = ocean.create_data_nft(
     transferable=True,
     owner=web3_wallet.address,
 )
+
 print(f"Created dataNFT. Its address is {data_nft.address}")
