@@ -1,24 +1,14 @@
-from config import web3_wallet, ocean, config
+from config import web3_wallet, ocean, config, web3_wallet2
 from ocean_lib.aquarius import Aquarius
-from ocean_lib.web3_internal.wallet import Wallet
-import os
 
-dataset_did = "did:op:33e68473055b7f84be2d4f6baea2bf58bb97e87ab683f67571e237c7baae3fe4"
-algo_did = "did:op:656b3ab786fc76255988d8c106c7df6db8af9fada6a5b5f9989377da05f8827a"
+# test algo
+dataset_did = "did:op:9f5591a01c122b6d3bcd61b80216bb539aac6882372e2c95de895cdebeaa1466"
+algo_did = "did:op:fb8d24aff3cdf29dc9fbd15d31a27cb0e06de7f345cd8543fc67269f612c0c3e"
 
-aquarius = Aquarius.get_instance(config.metadata_cache_uri)
+aquarius = Aquarius.get_instance(config["METADATA_CACHE_URI"])
 
 DATA_asset = aquarius.wait_for_asset(dataset_did)
 ALGO_asset = aquarius.wait_for_asset(algo_did)
-
-# Mint
-
-bob_wallet = Wallet(
-    ocean.web3,
-    os.getenv("PRIVATE_KEY2"),
-    config.block_confirmations,
-    config.transaction_timeout,
-)
 
 # Convenience variables
 DATA_did = DATA_asset.did
@@ -42,8 +32,8 @@ ALGO_compute_input = ComputeInput(ALGO_asset, algo_service)
 datasets, algorithm = ocean.assets.pay_for_compute_service(
     datasets=[DATA_compute_input],
     algorithm_data=ALGO_compute_input,
-    consume_market_order_fee_address=bob_wallet.address,
-    wallet=bob_wallet,
+    consume_market_order_fee_address=web3_wallet2.address,
+    wallet=web3_wallet2,
     compute_environment=free_c2d_env["id"],
     valid_until=int((datetime.utcnow() + timedelta(days=1)).timestamp()),
     consumer_address=free_c2d_env["consumerAddress"],
@@ -53,9 +43,14 @@ assert algorithm, "pay for algorithm unsuccessful"
 
 # Start compute job
 job_id = ocean.compute.start(
-    consumer_wallet=bob_wallet,
+    consumer_wallet=web3_wallet2,
     dataset=datasets[0],
     compute_environment=free_c2d_env["id"],
     algorithm=algorithm,
+    algorithm_algocustomdata={
+        "view": "compute-data",
+        "query-type": "all",
+        "design-doc": "brainstem"
+    }
 )
 print(f"Started compute job with id: {job_id}")

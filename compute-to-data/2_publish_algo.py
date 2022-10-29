@@ -20,7 +20,7 @@ ALGO_metadata = {
     "description": "gpr",
     "name": "gpr",
     "type": "algorithm",
-    "author": "Trent",
+    "author": "Test",
     "license": "CC0: PublicDomain",
     "algorithm": {
         "language": "python",
@@ -39,7 +39,7 @@ ALGO_metadata = {
 from ocean_lib.structures.file_objects import UrlFile
 
 ALGO_url_file = UrlFile(
-    url="https://raw.githubusercontent.com/oceanprotocol/c2d-examples/main/branin_and_gpr/gpr.py"
+    url="https://<removed>:<removed>@couchdb.dataunion.app/algorithm-scripts/<removed>/algorithm.py"
 )
 
 ALGO_files = [ALGO_url_file]

@@ -3,8 +3,8 @@ from config import web3_wallet, ocean, config
 from ocean_lib.aquarius import Aquarius
 
 data_nft = ocean.create_data_nft(
-    name="NFTToken1",
-    symbol="NFT1",
+    name="BrainstemNFT",
+    symbol="BNFT",
     from_wallet=web3_wallet,
     # Optional parameters
     token_uri="https://example.com",
@@ -20,22 +20,22 @@ DATA_datatoken = data_nft.create_datatoken("DATA 1", "D1", from_wallet=web3_wall
 print(f"DATA_datatoken address = '{DATA_datatoken.address}'")
 
 # Specify metadata and services, using the Branin test dataset
-DATA_date_created = "2021-12-28T10:55:11Z"
+DATA_date_created = "2022-10-28T10:55:11Z"
 DATA_metadata = {
     "created": DATA_date_created,
     "updated": DATA_date_created,
-    "description": "Branin dataset",
-    "name": "Branin dataset",
+    "description": "Test dataunion dataset",
+    "name": "Test dataunion dataset",
     "type": "dataset",
-    "author": "Trent",
-    "license": "CC0: PublicDomain",
+    "author": "Dataunion",
+    "license": "MIT",
 }
 
 # ocean.py offers multiple file types, but a simple url file should be enough for this example
 from ocean_lib.structures.file_objects import UrlFile
 
 DATA_url_file = UrlFile(
-    url="https://raw.githubusercontent.com/oceanprotocol/c2d-examples/main/branin_and_gpr/branin.arff"
+    url="https://crab.dataunion.app/api/v1/compute/data/<removed>"
 )
 
 DATA_files = [DATA_url_file]
@@ -54,7 +54,7 @@ from ocean_lib.services.service import Service
 DATA_compute_service = Service(
     service_id="2",
     service_type="compute",
-    service_endpoint=ocean.config.provider_url,
+    service_endpoint=ocean.config_dict["PROVIDER_URL"],
     datatoken=DATA_datatoken.address,
     files=DATA_files,
     timeout=3600,

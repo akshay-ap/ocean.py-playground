@@ -4,11 +4,13 @@ from ocean_lib.aquarius import Aquarius
 import time
 from decimal import Decimal
 
-job_id = "4c48a09b29244733b0c2872a3e33a4f0"
-dataset_did = "did:op:33e68473055b7f84be2d4f6baea2bf58bb97e87ab683f67571e237c7baae3fe4"
-algo_did = "did:op:656b3ab786fc76255988d8c106c7df6db8af9fada6a5b5f9989377da05f8827a"
+job_id = "5fdd5d3c7f734bba86c42c988ea47f75"
 
-aquarius = Aquarius.get_instance(config.metadata_cache_uri)
+# test algo
+dataset_did = "did:op:9f5591a01c122b6d3bcd61b80216bb539aac6882372e2c95de895cdebeaa1466"
+algo_did = "did:op:fb8d24aff3cdf29dc9fbd15d31a27cb0e06de7f345cd8543fc67269f612c0c3e"
+
+aquarius = Aquarius.get_instance(config["METADATA_CACHE_URI"])
 
 DATA_asset = aquarius.wait_for_asset(dataset_did)
 ALGO_asset = aquarius.wait_for_asset(algo_did)
@@ -26,7 +28,4 @@ output = ocean.compute.compute_job_result_logs(
     DATA_asset, compute_service, job_id, web3_wallet2
 )[0]
 
-import pickle
-
-model = pickle.loads(output)  # the gaussian model result
-assert len(model) > 0, "unpickle result unsuccessful"
+print("output:\n", output)
